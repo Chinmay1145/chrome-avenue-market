@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '../components/ui/button';
 import { Badge } from '../components/ui/badge';
 import CarCard from '../components/CarCard';
+import BackgroundSlider from '../components/BackgroundSlider';
 import { brands, getFeaturedCars } from '../data/cars';
 import { ChevronDown, Star, ShoppingCart } from 'lucide-react';
 
@@ -14,8 +15,7 @@ const Index = () => {
     <div className="min-h-screen">
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-luxury-gradient"></div>
-        <div className="absolute inset-0 bg-[url('/placeholder.svg')] bg-cover bg-center opacity-20"></div>
+        <BackgroundSlider />
         
         <div className="relative z-10 text-center max-w-4xl mx-auto px-4">
           <Badge className="mb-6 bg-primary/20 text-primary border-primary/30">
@@ -25,10 +25,10 @@ const Index = () => {
           <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-fade-in">
             <span className="text-gradient">Extraordinary</span>
             <br />
-            <span className="text-foreground">Luxury Cars</span>
+            <span className="text-white drop-shadow-lg">Luxury Cars</span>
           </h1>
           
-          <p className="text-xl text-foreground/80 mb-8 max-w-2xl mx-auto animate-fade-in">
+          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto animate-fade-in drop-shadow-md">
             Discover the world's most prestigious automotive brands. From Bentley to Ferrari, 
             experience the pinnacle of luxury, performance, and craftsmanship.
           </p>
@@ -48,8 +48,8 @@ const Index = () => {
           </div>
         </div>
         
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <ChevronDown className="w-8 h-8 text-primary" />
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce z-20">
+          <ChevronDown className="w-8 h-8 text-white drop-shadow-lg" />
         </div>
       </section>
 
