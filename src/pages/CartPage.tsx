@@ -3,62 +3,140 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
+import { Label } from '../components/ui/label';
+import { RadioGroup, RadioGroupItem } from '../components/ui/radio-group';
 import { Badge } from '../components/ui/badge';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../components/ui/dialog';
 import { useCart } from '../contexts/CartContext';
 import { formatPrice } from '../data/cars';
-import { Plus, Minus, Trash2, ShoppingCart, CreditCard, CheckCircle } from 'lucide-react';
+import { Plus, Minus, Trash2, ShoppingCart, CreditCard, CheckCircle, Truck, Calendar, Award, Gift } from 'lucide-react';
 import { toast } from 'sonner';
+import CheckoutForm from '../components/CheckoutForm';
 
 const CartPage = () => {
   const { items, updateQuantity, removeFromCart, clearCart, getTotalPrice, getTotalItems } = useCart();
   const [isCheckingOut, setIsCheckingOut] = useState(false);
   const [orderPlaced, setOrderPlaced] = useState(false);
+  const [showCheckoutForm, setShowCheckoutForm] = useState(false);
 
   // Mock checkout process
-  const handleCheckout = async () => {
-    if (items.length === 0) {
-      toast.error('Your cart is empty');
-      return;
-    }
-
+  const handleCheckout = async (formData: any) => {
     setIsCheckingOut(true);
     
     // Simulate payment processing
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    await new Promise(resolve => setTimeout(resolve, 3000));
     
     setOrderPlaced(true);
     setIsCheckingOut(false);
+    setShowCheckoutForm(false);
     clearCart();
     
-    toast.success('Order placed successfully! 🎉');
+    toast.success('Payment successful! Your order is confirmed 🎉');
   };
 
   if (orderPlaced) {
     return (
-      <div className="min-h-screen pt-24 pb-12">
+      <div className="min-h-screen pt-24 pb-12 bg-gradient-to-br from-background via-background to-primary/5">
         <div className="container mx-auto px-4">
-          <div className="max-w-2xl mx-auto text-center">
-            <div className="luxury-card p-12 rounded-xl animate-fade-in">
-              <CheckCircle className="w-24 h-24 text-green-500 mx-auto mb-6" />
-              <h1 className="text-4xl font-bold text-foreground mb-4">
-                Order Confirmed! 🎉
-              </h1>
-              <p className="text-foreground/70 text-lg mb-8">
-                Thank you for your purchase! Your luxury car order has been successfully placed.
-                You'll receive a confirmation email shortly with tracking details.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link to="/cars">
-                  <Button size="lg" className="bg-primary hover:bg-primary/90">
-                    Continue Shopping
-                  </Button>
-                </Link>
-                <Link to="/">
-                  <Button size="lg" variant="outline" className="border-primary/30 text-primary hover:bg-primary/10">
-                    Back to Home
-                  </Button>
-                </Link>
+          <div className="max-w-4xl mx-auto">
+            {/* Success Animation */}
+            <div className="text-center mb-12">
+              <div className="relative mb-8">
+                <div className="w-32 h-32 mx-auto bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center animate-fade-in shadow-2xl">
+                  <CheckCircle className="w-16 h-16 text-white animate-scale-in" />
+                </div>
+                <div className="absolute inset-0 w-32 h-32 mx-auto rounded-full bg-green-400 animate-ping opacity-20"></div>
               </div>
+              
+              <h1 className="text-5xl font-bold text-foreground mb-6 animate-fade-in">
+                🎉 Order Confirmed! 🎉
+              </h1>
+              
+              <div className="text-xl text-foreground/80 mb-8 animate-fade-in">
+                <p className="mb-2">Thank you for choosing our luxury cars!</p>
+                <p>Your dream car is on its way.</p>
+              </div>
+            </div>
+
+            {/* Order Details Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+              <div className="luxury-card p-6 text-center animate-fade-in" style={{ animationDelay: '0.2s' }}>
+                <div className="w-16 h-16 mx-auto mb-4 bg-primary/20 rounded-full flex items-center justify-center">
+                  <Truck className="w-8 h-8 text-primary" />
+                </div>
+                <h3 className="font-bold text-foreground mb-2">Free Delivery</h3>
+                <p className="text-sm text-foreground/70">Your car will be delivered to your doorstep within 7-14 business days</p>
+              </div>
+              
+              <div className="luxury-card p-6 text-center animate-fade-in" style={{ animationDelay: '0.4s' }}>
+                <div className="w-16 h-16 mx-auto mb-4 bg-primary/20 rounded-full flex items-center justify-center">
+                  <Calendar className="w-8 h-8 text-primary" />
+                </div>
+                <h3 className="font-bold text-foreground mb-2">Installation Scheduled</h3>
+                <p className="text-sm text-foreground/70">Our team will contact you within 24 hours to schedule delivery</p>
+              </div>
+              
+              <div className="luxury-card p-6 text-center animate-fade-in" style={{ animationDelay: '0.6s' }}>
+                <div className="w-16 h-16 mx-auto mb-4 bg-primary/20 rounded-full flex items-center justify-center">
+                  <Award className="w-8 h-8 text-primary" />
+                </div>
+                <h3 className="font-bold text-foreground mb-2">Premium Warranty</h3>
+                <p className="text-sm text-foreground/70">5-year comprehensive warranty included with your purchase</p>
+              </div>
+            </div>
+
+            {/* Special Offer */}
+            <div className="luxury-card p-8 mb-8 bg-gradient-to-r from-primary/10 to-accent/10 border-primary/30 animate-fade-in" style={{ animationDelay: '0.8s' }}>
+              <div className="flex items-center gap-4 mb-4">
+                <Gift className="w-12 h-12 text-primary" />
+                <div>
+                  <h3 className="text-2xl font-bold text-foreground">Congratulations!</h3>
+                  <p className="text-foreground/80">You've earned exclusive benefits with this purchase</p>
+                </div>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-primary rounded-full"></div>
+                  <span className="text-foreground/80">Free premium car accessories worth ₹50,000</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-primary rounded-full"></div>
+                  <span className="text-foreground/80">Lifetime maintenance support</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-primary rounded-full"></div>
+                  <span className="text-foreground/80">VIP customer service priority</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-primary rounded-full"></div>
+                  <span className="text-foreground/80">Exclusive invites to luxury car events</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in" style={{ animationDelay: '1s' }}>
+              <Link to="/cars">
+                <Button size="lg" className="bg-primary hover:bg-primary/90 min-w-[200px]">
+                  <ShoppingCart className="w-5 h-5 mr-2" />
+                  Continue Shopping
+                </Button>
+              </Link>
+              <Link to="/">
+                <Button size="lg" variant="outline" className="border-primary/30 text-primary hover:bg-primary/10 min-w-[200px]">
+                  Back to Home
+                </Button>
+              </Link>
+            </div>
+
+            {/* Email Confirmation */}
+            <div className="text-center mt-8 p-4 bg-muted/30 rounded-lg animate-fade-in" style={{ animationDelay: '1.2s' }}>
+              <p className="text-sm text-foreground/70">
+                📧 Confirmation email sent to your registered email address
+              </p>
+              <p className="text-xs text-foreground/60 mt-1">
+                Order ID: #LUX{Math.random().toString(36).substr(2, 9).toUpperCase()}
+              </p>
             </div>
           </div>
         </div>
@@ -231,24 +309,29 @@ const CartPage = () => {
                 </div>
               </div>
 
-              <Button
-                onClick={handleCheckout}
-                disabled={isCheckingOut}
-                size="lg"
-                className="w-full mt-6 bg-primary hover:bg-primary/90 text-primary-foreground"
-              >
-                {isCheckingOut ? (
-                  <>
-                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                    Processing...
-                  </>
-                ) : (
-                  <>
+              <Dialog open={showCheckoutForm} onOpenChange={setShowCheckoutForm}>
+                <DialogTrigger asChild>
+                  <Button
+                    size="lg"
+                    className="w-full mt-6 bg-primary hover:bg-primary/90 text-primary-foreground"
+                  >
                     <CreditCard className="w-5 h-5 mr-2" />
                     Proceed to Checkout
-                  </>
-                )}
-              </Button>
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+                  <DialogHeader>
+                    <DialogTitle className="text-2xl font-bold text-foreground">
+                      Complete Your Purchase
+                    </DialogTitle>
+                  </DialogHeader>
+                  <CheckoutForm
+                    totalAmount={finalPrice}
+                    onSubmit={handleCheckout}
+                    isProcessing={isCheckingOut}
+                  />
+                </DialogContent>
+              </Dialog>
 
               <p className="text-xs text-foreground/60 mt-4 text-center">
                 Secure checkout with 256-bit SSL encryption
