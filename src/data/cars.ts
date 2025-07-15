@@ -1,11 +1,16 @@
 
 import { Car, Brand } from '../types/car';
+import bentleyLogo from '../assets/bentley-logo.png';
+import rollsRoyceLogo from '../assets/rolls-royce-logo.png';
+import ferrariLogo from '../assets/ferrari-logo.png';
+import lamborghiniLogo from '../assets/lamborghini-logo.png';
+import mclarenLogo from '../assets/mclaren-logo.png';
 
 export const brands: Brand[] = [
   {
     id: 'bentley',
     name: 'Bentley',
-    logo: '/placeholder.svg',
+    logo: bentleyLogo,
     description: 'Extraordinary journeys demand extraordinary cars.',
     founded: 1919,
     headquarters: 'Crewe, England',
@@ -14,7 +19,7 @@ export const brands: Brand[] = [
   {
     id: 'rolls-royce',
     name: 'Rolls-Royce',
-    logo: '/placeholder.svg',
+    logo: rollsRoyceLogo,
     description: 'The pinnacle of luxury and craftsmanship.',
     founded: 1904,
     headquarters: 'Goodwood, England',
@@ -23,7 +28,7 @@ export const brands: Brand[] = [
   {
     id: 'ferrari',
     name: 'Ferrari',
-    logo: '/placeholder.svg',
+    logo: ferrariLogo,
     description: 'Racing heritage meets Italian excellence.',
     founded: 1939,
     headquarters: 'Maranello, Italy',
@@ -32,7 +37,7 @@ export const brands: Brand[] = [
   {
     id: 'lamborghini',
     name: 'Lamborghini',
-    logo: '/placeholder.svg',
+    logo: lamborghiniLogo,
     description: 'Expect the unexpected.',
     founded: 1963,
     headquarters: 'Sant\'Agata Bolognese, Italy',
@@ -41,7 +46,7 @@ export const brands: Brand[] = [
   {
     id: 'mclaren',
     name: 'McLaren',
-    logo: '/placeholder.svg',
+    logo: mclarenLogo,
     description: 'Pure driving excellence.',
     founded: 1963,
     headquarters: 'Woking, England',
